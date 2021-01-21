@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo/screens/add_tasks.dart';
 
 class TaskScreens extends StatelessWidget {
   @override
@@ -9,7 +10,19 @@ class TaskScreens extends StatelessWidget {
         backgroundColor: Colors.lightBlueAccent,
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.lightBlueAccent,
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) => SingleChildScrollView(
+                child: Container(
+                  child: AddTaskScreen(),
+                ),
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+              ),
+              isScrollControlled: true,
+            );
+          },
           child: Icon(Icons.add),
         ),
         body: Column(
@@ -23,7 +36,7 @@ class TaskScreens extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.white,
-                    radius: 40.0,
+                    radius: 35.0,
                     child: Icon(
                       Icons.list,
                       size: 50.0,
@@ -31,7 +44,7 @@ class TaskScreens extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 40.0,
+                    height: 20.0,
                   ),
                   Text(
                     'Todoey',
@@ -63,19 +76,61 @@ class TaskScreens extends StatelessWidget {
                   ),
                   child: ListView(
                     children: [
-                      ListTile(
-                        title: Text('Buy Milk'),
-                        trailing: Checkbox(
-                          value: false,
-                          onChanged: (bool value) {},
-                        ),
-                      )
+                      TaskTile(),
+                      TaskTile(),
+                      TaskTile(),
+                      TaskTile(),
                     ],
                   )),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class TaskTile extends StatefulWidget {
+  @override
+  _TaskTileState createState() => _TaskTileState();
+}
+
+class _TaskTileState extends State<TaskTile> {
+  bool isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        'Buy Milk',
+        style: TextStyle(
+            decoration: isChecked ? TextDecoration.lineThrough : null),
+      ),
+      trailing: TaskCheckBox(
+        checkState: isChecked,
+        toggleCheckBox: (bool value) {
+          setState(() {
+            isChecked = value;
+          });
+        },
+      ),
+    );
+  }
+}
+
+class TaskCheckBox extends StatelessWidget {
+  final bool checkState;
+
+  final Function toggleCheckBox;
+
+  TaskCheckBox({this.checkState, this.toggleCheckBox});
+
+  @override
+  Widget build(BuildContext context) {
+    return Checkbox(
+      activeColor: Colors.lightBlueAccent,
+      value: checkState,
+      onChanged: toggleCheckBox,
     );
   }
 }
