@@ -1,9 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo/models/tasks.dart';
 import 'package:todo/screens/add_tasks.dart';
 import 'package:todo/widgets/tasks_list.dart';
 
-class TaskScreens extends StatelessWidget {
+class TaskScreens extends StatefulWidget {
+  @override
+  _TaskScreensState createState() => _TaskScreensState();
+}
+
+class _TaskScreensState extends State<TaskScreens> {
+  List<Task> tasks = [
+    Task(name: 'Buy Milk'),
+    Task(name: 'Buy Breads'),
+    Task(name: 'Buy Eggs'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -16,7 +28,14 @@ class TaskScreens extends StatelessWidget {
               context: context,
               builder: (BuildContext context) => SingleChildScrollView(
                 child: Container(
-                  child: AddTaskScreen(),
+                  child: AddTaskScreen(
+                    addTaskCallBack: (String newTaskTitle) {
+                      setState(() {
+                        tasks.add(Task(name: newTaskTitle, isDone: false));
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -56,7 +75,7 @@ class TaskScreens extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '12 Tasks',
+                    '${tasks.length} Tasks',
                     style: TextStyle(
                       fontSize: 20.0,
                       color: Colors.white,
@@ -75,7 +94,9 @@ class TaskScreens extends StatelessWidget {
                     topRight: Radius.circular(10.0),
                   ),
                 ),
-                child: TasksList(),
+                child: TasksList(
+                  tasks: tasks,
+                ),
               ),
             ),
           ],
