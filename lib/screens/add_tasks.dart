@@ -31,7 +31,7 @@ class AddTaskScreen extends StatelessWidget {
               height: 20.0,
             ),
             TextField(
-              decoration: InputDecoration(hintText: 'Go and buy Milk..'),
+              decoration: InputDecoration(hintText: 'Buy Milk..'),
               autofocus: true,
               textAlign: TextAlign.center,
             ),

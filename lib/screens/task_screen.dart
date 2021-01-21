@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/screens/add_tasks.dart';
+import 'package:todo/widgets/tasks_list.dart';
 
 class TaskScreens extends StatelessWidget {
   @override
@@ -66,71 +67,20 @@ class TaskScreens extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                  padding: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                    ),
+                padding: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.0),
+                    topRight: Radius.circular(10.0),
                   ),
-                  child: ListView(
-                    children: [
-                      TaskTile(),
-                      TaskTile(),
-                      TaskTile(),
-                      TaskTile(),
-                    ],
-                  )),
+                ),
+                child: TasksList(),
+              ),
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class TaskTile extends StatefulWidget {
-  @override
-  _TaskTileState createState() => _TaskTileState();
-}
-
-class _TaskTileState extends State<TaskTile> {
-  bool isChecked = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        'Buy Milk',
-        style: TextStyle(
-            decoration: isChecked ? TextDecoration.lineThrough : null),
-      ),
-      trailing: TaskCheckBox(
-        checkState: isChecked,
-        toggleCheckBox: (bool value) {
-          setState(() {
-            isChecked = value;
-          });
-        },
-      ),
-    );
-  }
-}
-
-class TaskCheckBox extends StatelessWidget {
-  final bool checkState;
-
-  final Function toggleCheckBox;
-
-  TaskCheckBox({this.checkState, this.toggleCheckBox});
-
-  @override
-  Widget build(BuildContext context) {
-    return Checkbox(
-      activeColor: Colors.lightBlueAccent,
-      value: checkState,
-      onChanged: toggleCheckBox,
     );
   }
 }
