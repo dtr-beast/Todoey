@@ -27,4 +27,9 @@ class TasksListClass extends ChangeNotifier {
     tasks.add(Task(name: name, isDone: false));
     notifyListeners();
   }
+
+  void updateTask(Task task) {
+    task.toggleDone();
+    notifyListeners();
+  }
 }

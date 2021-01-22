@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/models/tasks.dart';
@@ -18,13 +17,7 @@ class TaskScreens extends StatelessWidget {
               context: context,
               builder: (BuildContext context) => SingleChildScrollView(
                 child: Container(
-                  child: AddTaskScreen(
-                    addTaskCallBack: (String taskName) {
-                      Provider.of<TasksListClass>(context, listen: false)
-                          .addTask(taskName);
-                      Navigator.pop(context);
-                    },
-                  ),
+                  child: AddTaskScreen(),
                 ),
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom),
