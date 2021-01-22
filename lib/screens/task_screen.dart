@@ -1,21 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/models/tasks.dart';
 import 'package:todo/screens/add_tasks.dart';
 import 'package:todo/widgets/tasks_list.dart';
 
-class TaskScreens extends StatefulWidget {
-  @override
-  _TaskScreensState createState() => _TaskScreensState();
-}
-
-class _TaskScreensState extends State<TaskScreens> {
-  List<Task> tasks = [
-    Task(name: 'Buy Milk'),
-    Task(name: 'Buy Breads'),
-    Task(name: 'Buy Eggs'),
-  ];
-
+class TaskScreens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -29,10 +19,9 @@ class _TaskScreensState extends State<TaskScreens> {
               builder: (BuildContext context) => SingleChildScrollView(
                 child: Container(
                   child: AddTaskScreen(
-                    addTaskCallBack: (String newTaskTitle) {
-                      setState(() {
-                        tasks.add(Task(name: newTaskTitle, isDone: false));
-                      });
+                    addTaskCallBack: (String taskName) {
+                      Provider.of<TasksListClass>(context, listen: false)
+                          .addTask(taskName);
                       Navigator.pop(context);
                     },
                   ),
@@ -75,7 +64,7 @@ class _TaskScreensState extends State<TaskScreens> {
                     ),
                   ),
                   Text(
-                    '${tasks.length} Tasks',
+                    '${Provider.of<TasksListClass>(context).tasks.length} Tasks',
                     style: TextStyle(
                       fontSize: 20.0,
                       color: Colors.white,
@@ -95,7 +84,7 @@ class _TaskScreensState extends State<TaskScreens> {
                   ),
                 ),
                 child: TasksList(
-                  tasks: tasks,
+                  tasks: Provider.of<TasksListClass>(context).tasks,
                 ),
               ),
             ),
