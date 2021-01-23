@@ -18,8 +18,9 @@ class TasksListClass extends ChangeNotifier {
     Task(name: 'Buy Eggs'),
   ];
 
-  void deleteTask(int index) {
-    tasks.removeAt(index);
+  void deleteTask(Task task) {
+    tasks.remove(task);
+    // tasks.removeAt(taskIndex);
     notifyListeners();
   }
 
