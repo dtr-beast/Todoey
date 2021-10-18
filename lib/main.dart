@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<TasksListClass>(
       create: (context) => TasksListClass(),
       child: MaterialApp(
-        home: TaskScreens(),
+        home: TasksScreen(),
       ),
     );
   }

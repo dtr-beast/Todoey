@@ -4,7 +4,7 @@ import 'package:todo/models/tasks.dart';
 import 'package:todo/screens/add_tasks.dart';
 import 'package:todo/widgets/tasks_list.dart';
 
-class TaskScreens extends StatelessWidget {
+class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
